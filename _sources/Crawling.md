@@ -2,7 +2,7 @@
 
 Web Crawling adalah teknik pengumpulan data yang digunakan untuk mengindeks informasi pada halaman menggunakan URL (Uniform Resource Locator) dengan menyertakan API (Application Programming Interface) untuk melakukan penambangan dataset yang lebih besar. Data yang dapat kamu kumpulkan dapat berupa text, audio, video, dan gambar.
 
-Salah satu library python yang digunakan untuk crawling data adalah scrapy. 
+Salah satu library python yang digunakan untuk crawling data adalah scrapy.
 
 # Installasi Module Scrapy
 
@@ -12,11 +12,9 @@ Cara menginstall module scrapy melalui command prompt dengan menuliskan code seb
 pip install scrapy
 ```
 
-
-
 ### Membuat Code Program Scraping
 
-sebelum melakukan crawling, disini kita mengambil data scraping terlebih dahulu. kita mengambil link dari data yang akan kita crawling lalu kumpulan link nanti akan dijadikan csv.
+sebelum melakukan crawling, disini kita mengambil data scraping terlebih dahulu. kita mengambil link dari data yang akan kita crawling lalu kumpulan link nanti akan dijadikan csv. kita akan mencoba melakukan crawling dari website pta.trunojoyo.ac.id dari prodi manajemen fakultas Ekonomi.
 
 ```python
 import scrapy
@@ -27,17 +25,18 @@ class QuotesSpider(scrapy.Spider):
 
     def start_requests(self):
 
-        arrayData = ['https://pta.trunojoyo.ac.id/c_search/byfac/4/']
-        for i in range(2, 461):
-            inArray = 'https://pta.trunojoyo.ac.id/c_search/byfac/4/' + str(i)
+        arrayData = ['https://pta.trunojoyo.ac.id/c_search/byprod/7/']
+        for i in range(2,21):
+            inArray = 'https://pta.trunojoyo.ac.id/c_search/byprod/7/' + str(i)
             arrayData.append(inArray)
         for url in arrayData:
             yield scrapy.Request(url=url, callback=self.parse)
 
     def parse(self, response):
-        for i in range(1, 6):
-            yield {'link': response.css('#content_journal > ul > li:nth-child(' + str(i) + ') > div:nth-child(3) > a::attr(href)').extract()
-                   }
+        for i in range(1,6):
+            yield {
+                'link': response.css('#content_journal > ul > li:nth-child(' + str(i) + ') > div:nth-child(3) > a::attr(href)').extract()
+            }
 ```
 
 # Menjalankan File Spider
@@ -67,12 +66,13 @@ import scrapy
 import pandas as pd
 
 
+
 class QuotesSpider(scrapy.Spider):
     name = "quotes"
 
     def start_requests(self):
 
-        dataExcel = pd.read_xlsx('Datascrawl.xlsx')
+        dataCSV = pd.read_csv('ptamanajemen.csv')
         indexData = dataCSV.iloc[:, [0]].values
         arrayData = []
         for i in indexData:
@@ -81,15 +81,15 @@ class QuotesSpider(scrapy.Spider):
         for url in arrayData:
             yield scrapy.Request(url=url, callback=self.parse)
 
-    def parse(self, response):
+    def parse(self,response):
         yield {
-            'judul': response.css('#content_journal > ul > li > div:nth-child(2) > a::text').extract(),
-            'penulis': response.css('#content_journal > ul > li > div:nth-child(2) > div:nth-child(2) > span::text').extract(),
-            'dosen1': response.css('#content_journal > ul > li > div:nth-child(2) > div:nth-child(3) > span::text').extract(),
-            'dosen2': response.css('#content_journal > ul > li > div:nth-child(2) > div:nth-child(4) > span::text').extract(),
-            'abstrak': response.css('#content_journal > ul > li > div:nth-child(4) > div:nth-child(2) > p::text').extract(),
+            'judul':response.css('#content_journal > ul > li > div:nth-child(2) > a::text').extract(),
+            'penulis':response.css('#content_journal > ul > li > div:nth-child(2) > div:nth-child(2)> span::text').extract(),
+            'dosen_1':response.css('#content_journal > ul > li > div:nth-child(2) > div:nth-child(3)> span::text').extract(),
+            'dosen_2':response.css('#content_journal > ul > li > div:nth-child(2) > div:nth-child(4)> span::text').extract(),
+            'abstrak':response.css('#content_journal > ul > li > div:nth-child(4) > div:nth-child(2) > p::text').extract(),
+
         }
 
-```
-
 setelah menjalankan program tersebut, kita bisa menjalankan file spider dan menyimpan file hasil crawling dengan cara seperti diatas.
+```
