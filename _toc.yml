@@ -5,7 +5,7 @@ format: jb-book
 root: intro
 chapters:
   - file: Crawling
-  - file: Text-Preprocessing
+  - file: Text-Prepocessing
   - file: K-Means
   - file: LSA
   - url: https://colab.research.google.com/drive/1jrGBSju-AIOxzKcyjN69gVIYaMaEnqli?usp=sharing
