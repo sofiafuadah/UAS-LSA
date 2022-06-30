@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>Crawling Data &#8212; UAS Topic Modelling LSA</title>
+    <title>Crawling Data &#8212; UAS PPW Clustering K-Means dan Topic Modelling LSA</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -52,6 +52,8 @@ const thebe_selector_output = ".output, .cell_output"
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Pengertian K-Means" href="K-Means.html" />
+    <link rel="prev" title="Tugas UAS PAW - Topik Modelling using LSA" href="intro.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -92,10 +94,10 @@ const thebe_selector_output = ".output, .cell_output"
         
       
       
-      <img src="_static/logo.png" class="logo" alt="logo">
+      <img src="_static/logo-sofi.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">UAS Topic Modelling LSA</h1>
+      <h1 class="site-logo" id="site-title">UAS PPW Clustering K-Means dan Topic Modelling LSA</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -111,20 +113,30 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="markdown.html">
-   Markdown Files
+        <ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Crawling Data
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="notebooks.html">
-   Content with notebooks
+  <a class="reference internal" href="K-Means.html">
+   Pengertian K-Means
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="markdown-notebooks.html">
-   Notebooks with MyST Markdown
+  <a class="reference internal" href="LSA.html">
+   LSA (Latent Semantic Analysis)
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://colab.research.google.com/drive/1jrGBSju-AIOxzKcyjN69gVIYaMaEnqli?usp=sharing">
+   Code Program K-Means
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://colab.research.google.com/drive/1jpq1FVqxx_JbCN70ju2tufKlgmGl-r-1?usp=sharing">
+   Code Program LSA
   </a>
  </li>
 </ul>
@@ -407,7 +419,7 @@ title="Print to PDF"
 <p>Cara menginstall module scrapy melalui command prompt dengan menuliskan code sebagai berikut</p>
 <section id="membuat-code-program-scraping">
 <h2>Membuat Code Program Scraping<a class="headerlink" href="#membuat-code-program-scraping" title="Permalink to this headline">#</a></h2>
-<p>sebelum melakukan crawling, disini kita mengambil data scraping terlebih dahulu. kita mengambil link dari data yang akan kita crawling lalu kumpulan link nanti akan dijadikan csv.</p>
+<p>sebelum melakukan crawling, disini kita mengambil data scraping terlebih dahulu. kita mengambil link dari data yang akan kita crawling lalu kumpulan link nanti akan dijadikan csv. kita akan mencoba melakukan crawling dari website <a class="reference external" href="http://pta.trunojoyo.ac.id">pta.trunojoyo.ac.id</a> dari prodi manajemen fakultas Ekonomi.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">scrapy</span>
 
 
@@ -416,17 +428,18 @@ title="Print to PDF"
 
     <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">arrayData</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://pta.trunojoyo.ac.id/c_search/byfac/4/&#39;</span><span class="p">]</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">461</span><span class="p">):</span>
-            <span class="n">inArray</span> <span class="o">=</span> <span class="s1">&#39;https://pta.trunojoyo.ac.id/c_search/byfac/4/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="n">arrayData</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;https://pta.trunojoyo.ac.id/c_search/byprod/7/&#39;</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">21</span><span class="p">):</span>
+            <span class="n">inArray</span> <span class="o">=</span> <span class="s1">&#39;https://pta.trunojoyo.ac.id/c_search/byprod/7/&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
             <span class="n">arrayData</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inArray</span><span class="p">)</span>
         <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">arrayData</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">):</span>
-            <span class="k">yield</span> <span class="p">{</span><span class="s1">&#39;link&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li:nth-child(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) &gt; div:nth-child(3) &gt; a::attr(href)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
-                   <span class="p">}</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">6</span><span class="p">):</span>
+            <span class="k">yield</span> <span class="p">{</span>
+                <span class="s1">&#39;link&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li:nth-child(&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;) &gt; div:nth-child(3) &gt; a::attr(href)&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">()</span>
+            <span class="p">}</span>
 </pre></div>
 </div>
 </section>
@@ -453,12 +466,13 @@ title="Print to PDF"
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
 
+
 <span class="k">class</span> <span class="nc">QuotesSpider</span><span class="p">(</span><span class="n">scrapy</span><span class="o">.</span><span class="n">Spider</span><span class="p">):</span>
     <span class="n">name</span> <span class="o">=</span> <span class="s2">&quot;quotes&quot;</span>
 
     <span class="k">def</span> <span class="nf">start_requests</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
 
-        <span class="n">dataExcel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_xlsx</span><span class="p">(</span><span class="s1">&#39;Datascrawl.xlsx&#39;</span><span class="p">)</span>
+        <span class="n">dataCSV</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;ptamanajemen.csv&#39;</span><span class="p">)</span>
         <span class="n">indexData</span> <span class="o">=</span> <span class="n">dataCSV</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="p">[</span><span class="mi">0</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
         <span class="n">arrayData</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">indexData</span><span class="p">:</span>
@@ -467,18 +481,19 @@ title="Print to PDF"
         <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">arrayData</span><span class="p">:</span>
             <span class="k">yield</span> <span class="n">scrapy</span><span class="o">.</span><span class="n">Request</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">response</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">parse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">response</span><span class="p">):</span>
         <span class="k">yield</span> <span class="p">{</span>
-            <span class="s1">&#39;judul&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; a::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
-            <span class="s1">&#39;penulis&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; div:nth-child(2) &gt; span::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
-            <span class="s1">&#39;dosen1&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; div:nth-child(3) &gt; span::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
-            <span class="s1">&#39;dosen2&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; div:nth-child(4) &gt; span::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
-            <span class="s1">&#39;abstrak&#39;</span><span class="p">:</span> <span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(4) &gt; div:nth-child(2) &gt; p::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="s1">&#39;judul&#39;</span><span class="p">:</span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; a::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="s1">&#39;penulis&#39;</span><span class="p">:</span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; div:nth-child(2)&gt; span::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="s1">&#39;dosen_1&#39;</span><span class="p">:</span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; div:nth-child(3)&gt; span::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="s1">&#39;dosen_2&#39;</span><span class="p">:</span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(2) &gt; div:nth-child(4)&gt; span::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+            <span class="s1">&#39;abstrak&#39;</span><span class="p">:</span><span class="n">response</span><span class="o">.</span><span class="n">css</span><span class="p">(</span><span class="s1">&#39;#content_journal &gt; ul &gt; li &gt; div:nth-child(4) &gt; div:nth-child(2) &gt; p::text&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extract</span><span class="p">(),</span>
+
         <span class="p">}</span>
 
+<span class="n">setelah</span> <span class="n">menjalankan</span> <span class="n">program</span> <span class="n">tersebut</span><span class="p">,</span> <span class="n">kita</span> <span class="n">bisa</span> <span class="n">menjalankan</span> <span class="n">file</span> <span class="n">spider</span> <span class="n">dan</span> <span class="n">menyimpan</span> <span class="n">file</span> <span class="n">hasil</span> <span class="n">crawling</span> <span class="n">dengan</span> <span class="n">cara</span> <span class="n">seperti</span> <span class="n">diatas</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>setelah menjalankan program tersebut, kita bisa menjalankan file spider dan menyimpan file hasil crawling dengan cara seperti diatas.</p>
 </section>
 
     <script type="text/x-thebe-config">
@@ -508,6 +523,20 @@ title="Print to PDF"
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Tugas UAS PAW - Topik Modelling using LSA</p>
+        </div>
+    </a>
+    <a class='right-next' id="next-link" href="K-Means.html" title="next page">
+    <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Pengertian K-Means</p>
+    </div>
+    <i class="fas fa-angle-right"></i>
+    </a>
 </div>
             </footer>
         </div>
@@ -515,7 +544,7 @@ title="Print to PDF"
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Siti Sofiystul Fuadah<br/>
+    By Siti Sofiyatul Fuadah<br/>
   
       &copy; Copyright 2022.<br/>
 </p>

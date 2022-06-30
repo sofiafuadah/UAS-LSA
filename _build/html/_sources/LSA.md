@@ -12,25 +12,10 @@ langkah-langkah algoritma LSA dalam preprocessing teks
 
 sebelum meghitung term-document matrix (TF-IDF) kita telah melakukan preprocessing teks yang berupa case folding, dan stopword removal. matriks term-dokumen dibangun dengan menempatkan hasil proses stemming ke dalam baris. setiap baris mewakili kata-kata yang uni, dan setiap kolom mewakili konteks darimana kata-kata tersebut diambil.
 
-cara menghitung term-document matrix dapat dirumuskan dengan 
-$$
-\begin{aligned}.\\ W_{ij}=tfi,j\times \log \dfrac{N}{d_{fj}}\\ .\end{aligned}
-$$
-
-Wij = score Term-document matrix (TF-IDF)
-
-Tfi,j = term dokumen
-
-N = total dokumen
-
-Dfj = dokumen
-
-
-
 pada pyhton dapat dijalankan program sebagai berikut:
 
 ```{tableofcontents}
-vect =TfidfVectorizer(stop_words=list_stopwords,max_features=1000) 
+vect =TfidfVectorizer(stop_words=list_stopwords,max_features=1000)
 vect_text=vect.fit_transform(dataPTA['Abstrak'])
 print(vect_text.shape)
 print(vect_text)
@@ -44,24 +29,9 @@ Singular Value Decomposition (SVD) adalah salah satu teknik reduksi dimensi yang
 
 2. Matriks diagonal S
 
-3. Transpose dari matriks ortogonal V 
+3. Transpose dari matriks ortogonal V
 
-   yang dirumuskan dengan :
-   $$
-   A_{mn}=U_{mm}\times S_{mn}\times V_{nn}^{T}
-   $$
-   Amn = matriks awal
-
-   Umm = Matriks ortogonal U
-
-   Smm = Matriks diagonal S
-
-   VTnn = transpose matriks ortogonal V
-
-
-Hasil dari proses SVD adalah vektor yang akan digunakan untuk menghitung similaritasnya dengan pendekatan cosine similarity
-
-
+Hasil dari proses SVD adalah vektor yang akan digunakan untuk menghitung similaritasnya dengan pendekatan cosine similarity.
 
 implementasi SVD pada pyhton yaitu :
 
@@ -101,4 +71,3 @@ for i, comp in enumerate(lsa_model.components_):
         print(t[0],end=" ")
     print("\n")
 ```
-

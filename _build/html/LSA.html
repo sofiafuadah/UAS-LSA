@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
-    <title>LSA (Latent Semantic Analysis) &#8212; UAS Topic Modelling LSA</title>
+    <title>LSA (Latent Semantic Analysis) &#8212; UAS PPW Clustering K-Means dan Topic Modelling LSA</title>
     
   <!-- Loaded before other Sphinx assets -->
   <link href="_static/styles/theme.css?digest=1999514e3f237ded88cf" rel="stylesheet">
@@ -50,10 +50,9 @@ const thebe_selector_input = "pre"
 const thebe_selector_output = ".output, .cell_output"
 </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Pengertian K-Means" href="K-Means.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="None">
     
@@ -94,10 +93,10 @@ const thebe_selector_output = ".output, .cell_output"
         
       
       
-      <img src="_static/logo.png" class="logo" alt="logo">
+      <img src="_static/logo-sofi.png" class="logo" alt="logo">
       
       
-      <h1 class="site-logo" id="site-title">UAS Topic Modelling LSA</h1>
+      <h1 class="site-logo" id="site-title">UAS PPW Clustering K-Means dan Topic Modelling LSA</h1>
       
     </a>
 </div><form class="bd-search d-flex align-items-center" action="search.html" method="get">
@@ -113,20 +112,30 @@ const thebe_selector_output = ".output, .cell_output"
                 </a>
             </li>
         </ul>
-        <ul class="nav bd-sidenav">
+        <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
-  <a class="reference internal" href="markdown.html">
-   Markdown Files
+  <a class="reference internal" href="Crawling.html">
+   Crawling Data
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="notebooks.html">
-   Content with notebooks
+  <a class="reference internal" href="K-Means.html">
+   Pengertian K-Means
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   LSA (Latent Semantic Analysis)
   </a>
  </li>
  <li class="toctree-l1">
-  <a class="reference internal" href="markdown-notebooks.html">
-   Notebooks with MyST Markdown
+  <a class="reference external" href="https://colab.research.google.com/drive/1jrGBSju-AIOxzKcyjN69gVIYaMaEnqli?usp=sharing">
+   Code Program K-Means
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference external" href="https://colab.research.google.com/drive/1jpq1FVqxx_JbCN70ju2tufKlgmGl-r-1?usp=sharing">
+   Code Program LSA
   </a>
  </li>
 </ul>
@@ -397,34 +406,17 @@ title="Print to PDF"
 <section class="tex2jax_ignore mathjax_ignore" id="menghitung-term-document-matrix">
 <h1>Menghitung Term-document Matrix<a class="headerlink" href="#menghitung-term-document-matrix" title="Permalink to this headline">#</a></h1>
 <p>sebelum meghitung term-document matrix (TF-IDF) kita telah melakukan preprocessing teks yang berupa case folding, dan stopword removal. matriks term-dokumen dibangun dengan menempatkan hasil proses stemming ke dalam baris. setiap baris mewakili kata-kata yang uni, dan setiap kolom mewakili konteks darimana kata-kata tersebut diambil.</p>
-<p>cara menghitung term-document matrix dapat dirumuskan dengan
-$<span class="math notranslate nohighlight">\(
-\begin{aligned}.\\ W_{ij}=tfi,j\times \log \dfrac{N}{d_{fj}}\\ .\end{aligned}
-\)</span>$</p>
-<p>Wij = score Term-document matrix (TF-IDF)</p>
-<p>Tfi,j = term dokumen</p>
-<p>N = total dokumen</p>
-<p>Dfj = dokumen</p>
 <p>pada pyhton dapat dijalankan program sebagai berikut:</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="singular-value-decomposition">
 <h1>Singular Value Decomposition<a class="headerlink" href="#singular-value-decomposition" title="Permalink to this headline">#</a></h1>
 <p>Singular Value Decomposition (SVD) adalah salah satu teknik reduksi dimensi yang bermanfaat untuk memperkecil nilai kompleksitas dalam pemroses term-document matrix. SVD merupakan teorema aljabar linier yang menyebutkan bahwa persegi panjang dari term-document matrix dapat dipecah/didekomposisikan menjadi tiga matriks, yaitu :</p>
-<ol>
+<ol class="simple">
 <li><p>Matriks orotgunal U</p></li>
 <li><p>Matriks diagonal S</p></li>
-<li><p>Transpose dari matriks ortogonal V</p>
-<p>yang dirumuskan dengan :
-$<span class="math notranslate nohighlight">\(
-A_{mn}=U_{mm}\times S_{mn}\times V_{nn}^{T}
-\)</span>$
-Amn = matriks awal</p>
-<p>Umm = Matriks ortogonal U</p>
-<p>Smm = Matriks diagonal S</p>
-<p>VTnn = transpose matriks ortogonal V</p>
-</li>
+<li><p>Transpose dari matriks ortogonal V</p></li>
 </ol>
-<p>Hasil dari proses SVD adalah vektor yang akan digunakan untuk menghitung similaritasnya dengan pendekatan cosine similarity</p>
+<p>Hasil dari proses SVD adalah vektor yang akan digunakan untuk menghitung similaritasnya dengan pendekatan cosine similarity.</p>
 <p>implementasi SVD pada pyhton yaitu :</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.decomposition</span> <span class="kn">import</span> <span class="n">TruncatedSVD</span>
 <span class="n">lsa_model</span> <span class="o">=</span> <span class="n">TruncatedSVD</span><span class="p">(</span><span class="n">n_components</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">algorithm</span><span class="o">=</span><span class="s1">&#39;randomized&#39;</span><span class="p">,</span> <span class="n">n_iter</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
@@ -488,6 +480,13 @@ Amn = matriks awal</p>
                 
     <!-- Previous / next buttons -->
 <div class='prev-next-area'>
+    <a class='left-prev' id="prev-link" href="K-Means.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Pengertian K-Means</p>
+        </div>
+    </a>
 </div>
             </footer>
         </div>
@@ -495,7 +494,7 @@ Amn = matriks awal</p>
     <div class="footer-content row">
         <footer class="col footer"><p>
   
-    By Siti Sofiystul Fuadah<br/>
+    By Siti Sofiyatul Fuadah<br/>
   
       &copy; Copyright 2022.<br/>
 </p>

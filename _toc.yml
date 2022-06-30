@@ -4,6 +4,11 @@
 format: jb-book
 root: intro
 chapters:
-- file: markdown
-- file: notebooks
-- file: markdown-notebooks
+  - file: Crawling
+  - file: Text-Preprocessing
+  - file: K-Means
+  - file: LSA
+  - url: https://colab.research.google.com/drive/1jrGBSju-AIOxzKcyjN69gVIYaMaEnqli?usp=sharing
+    title: Code Program K-Means
+  - url: https://colab.research.google.com/drive/1jpq1FVqxx_JbCN70ju2tufKlgmGl-r-1?usp=sharing
+    title: Code Program LSA
