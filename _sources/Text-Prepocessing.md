@@ -1,26 +1,26 @@
 # Text Preprocessing
 
-Text preprocessing adalah suatu proses untuk menyeleksi data teks agar menjadi lebih terstruktur  lagi dengan melalui serangkaian tahapan yang meliputi tahapan case folding, tokenizing, filtering dan stemming.
+Text preprocessing adalah suatu proses untuk menyeleksi data teks agar menjadi lebih terstruktur lagi dengan melalui serangkaian tahapan yang meliputi tahapan case folding, tokenizing, filtering dan stemming.
 
 # Import Library
 
-sebelum memulai tahapan preprocessing teks, kita harus menuliskan library yang akan kita gunakan.  Pada code dibawah ini saya menggunakan library pandas, numpy, string, regex, NLTK dan SkLearn.
+sebelum memulai tahapan preprocessing teks, kita harus menuliskan library yang akan kita gunakan. Pada code dibawah ini saya menggunakan library pandas, numpy, string, regex, NLTK dan SkLearn.
 
-````{tableofcontents}
+```{tableofcontents}
 import pandas as pd
 import numpy as np
 #Import Library untuk Tokenisasi
-import string 
+import string
 import re #regex library
 
 # import word_tokenize & FreqDist dari NLTK
-from nltk.tokenize import word_tokenize 
+from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 from nltk.corpus import stopwords
 
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.feature_extraction.text import TfidfVectorizer
-````
+```
 
 # Read Data
 
@@ -32,7 +32,7 @@ dataPTA = pd.read_excel('hasilmanajemen.xlsx')
 
 # Case Folding
 
-Case folding merupakan tahapan dalam preprocessing teks yang dilakukan untuk menyeragamkan karakter. Case folding merupakan istilah yang digunakan untuk mengubah semua bentuk huruf dalam sebuah teks atau dokumen menjadi huruf kecil semua. 
+Case folding merupakan tahapan dalam preprocessing teks yang dilakukan untuk menyeragamkan karakter. Case folding merupakan istilah yang digunakan untuk mengubah semua bentuk huruf dalam sebuah teks atau dokumen menjadi huruf kecil semua.
 
 contoh case folding :
 
@@ -61,20 +61,18 @@ contoh tokenizing :
 
 ```
 
-
-
 # Stopword Removal
 
 stopword removal adalah proses untuk menghilangkan karakter yang tidak penting. Cotntohnya disini menghilangkan tanda baca, nomor.
 
 ```python
 #Import Library untuk Tokenisasi
-import string 
+import string
 import re #regex library
 dataPTA.abstrak = dataPTA.abstrak.astype(str)
 
 # import word_tokenize & FreqDist dari NLTK
-from nltk.tokenize import word_tokenize 
+from nltk.tokenize import word_tokenize
 from nltk.probability import FreqDist
 
 def remove_PTA_special(text):
@@ -86,7 +84,7 @@ def remove_PTA_special(text):
     text = ' '.join(re.sub("([@#][A-Za-z0-9]+)|(\w+:\/\/\S+)"," ", text).split())
     # menghapus incomplete URL
     return text.replace("http://", " ").replace("https://", " ")
-                
+
 dataPTA['abstrak'] = dataPTA['abstrak'].apply(remove_PTA_special)
 
 #menghapus nomor
@@ -125,7 +123,7 @@ def word_tokenize_wrapper(text):
 
 dataPTA['abstrak_token'] = dataPTA['abstrak'].apply(word_tokenize_wrapper)
 
-print('Tokenizing Result : \n') 
+print('Tokenizing Result : \n')
 print(dataPTA['abstrak_token'].head())
 ```
 
@@ -144,7 +142,7 @@ def stopwords_removal(words):
     return [word for word in words if word not in list_stopwords]
 
 #aStopwording
-dataPTA['abstrak_stop'] = dataPTA['abstrak_token'].apply(stopwords_removal) 
+dataPTA['abstrak_stop'] = dataPTA['abstrak_token'].apply(stopwords_removal)
 
 print(dataPTA['abstrak_stop'].head(20))
 ```
@@ -175,14 +173,14 @@ for document in dataPTA['abstrak_stop']:
     for term in document:
         if term not in term_dict:
             term_dict[term] = ' '
-            
+
 print(len(term_dict))
 print("------------------------")
 
 for term in term_dict:
     term_dict[term] = stemmed_wrapper(term)
     print(term,":" ,term_dict[term])
-    
+
 print(term_dict)
 print("------------------------")
 
@@ -202,9 +200,8 @@ sebelum meghitung term-document matrix (TF-IDF) kita telah melakukan preprocessi
 berikut code python untuk menghitung Term-document Matrix
 
 ```python
-vect =TfidfVectorizer(stop_words=list_stopwords,max_features=1000) 
+vect =TfidfVectorizer(stop_words=list_stopwords,max_features=1000)
 vect_text=vect.fit_transform(dataPTA['abstrak'])
 print(vect_text.shape)
 print(vect_text)
 ```
-
